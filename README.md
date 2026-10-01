@@ -37,4 +37,11 @@ All internal links are relative, so the preview also works when GitHub Pages hos
 - Run Lighthouse, WAVE/axe, keyboard, zoom/reflow and screen-reader checks on the real WordPress build.
 
 See `REDESIGN_PLAN.md` for the design and migration plan and `CONTENT_MAP.csv` for the route inventory.
-"# broadway-site-redesign" 
+
+
+## Preview v2
+- Removed redesign commentary from public pages.
+- Restored the full Academy motto in the header.
+- Reduced hero height and removed artificial “Explore this page” scroll buttons.
+- Added substantially more Broadway content to the homepage and key landing pages.
+- Kept downloadable/document destinations on the current Broadway domain where appropriate.
