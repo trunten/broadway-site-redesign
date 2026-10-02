@@ -139,3 +139,35 @@
 
 @media(max-width:1180px){.mainnav{display:none}.mobile-menu{display:inline-flex;margin-left:auto}.site-header.is-compact .head-main{min-height:44px}}
 @media(max-width:760px){.head-main{min-height:62px}.brand img{width:36px;height:43px}.brand-copy strong{font-size:.82rem}.brand-motto{display:none!important}.site-header.is-compact .head-main{min-height:42px}.site-header.is-compact .brand img{width:24px;height:29px}.footer-term-grid{grid-template-columns:1fr}.footer-term-item{border-right:0;border-bottom:1px solid rgba(255,255,255,.12);padding:.42rem 0}.footer-term-item+ .footer-term-item{padding-left:0}.footer-term-item:last-child{border-bottom:0}.values-clean,.dining-three,.dining-services,.dining-photo-grid{grid-template-columns:1fr}.dining-daily{columns:1}}
+
+/* v8: keep the shared header genuinely sticky. The injected header lives inside
+   #site-header-slot, so the slot itself must be sticky; making only the child
+   header sticky constrains it to the height of the slot and lets it scroll away. */
+#site-header-slot{position:sticky;top:0;z-index:120}
+.site-header{position:relative;top:auto;z-index:auto}
+:target{scroll-margin-top:calc(var(--site-header-height,70px) + 16px)}
+
+/* v8: fuller curriculum pages use compact disclosure rows instead of linking out
+   to the legacy site for the substance of each subject. */
+.curriculum-detail-list{border-top:1px solid var(--line);margin:1.2rem 0 2rem}
+.curriculum-detail{border-bottom:1px solid var(--line)}
+.curriculum-detail summary{list-style:none;cursor:pointer;padding:.9rem 2rem .9rem 0;font-weight:800;color:var(--navy2);position:relative}
+.curriculum-detail summary::-webkit-details-marker{display:none}
+.curriculum-detail summary::after{content:"+";position:absolute;right:.2rem;top:.75rem;font-size:1.35rem;font-weight:500;color:var(--gold2)}
+.curriculum-detail[open] summary::after{content:"–"}
+.curriculum-detail p{margin:0 0 1rem;max-width:82ch}
+
+/* v8 content-rich page patterns */
+.numbered-list{padding-left:1.4rem}.numbered-list li{margin:.65rem 0}
+.year-chips,.subject-cloud{display:flex;flex-wrap:wrap;gap:.5rem;margin:1rem 0 2rem}.year-chips span,.subject-cloud span{border:1px solid var(--line);background:#fff;padding:.48rem .68rem;border-radius:5px;font-weight:700;color:var(--navy2)}
+.ofsted-summary{background:var(--navy2);color:#fff;border-left:5px solid var(--gold);padding:1.3rem 1.5rem;margin:1rem 0 2rem}.ofsted-summary strong{display:block;font-size:clamp(2.3rem,5vw,4rem);line-height:1;margin:.3rem 0}.ofsted-summary small{display:block;color:#dbe6ef}.ofsted-summary .eyebrow{color:#e6c979}
+.static-directory span{padding:.85rem 1rem;border:1px solid var(--line);border-radius:5px;background:#fff;font-weight:700;color:var(--navy2)}
+.small-note{font-size:.9rem;color:var(--muted);border-top:1px solid var(--line);padding-top:.9rem}
+.contact-band{display:flex;justify-content:space-between;align-items:center;gap:1rem;background:var(--navy2);color:#fff;padding:1rem 1.2rem;margin:1.2rem 0;border-left:5px solid var(--gold)}.contact-band strong,.contact-band span{display:block}.contact-band span{color:#dbe6ef;font-size:.9rem}
+.video-frame{background:#061b2f;padding:.75rem;margin:1rem 0 2rem}.video-frame video{display:block;width:100%;max-height:560px;background:#000}
+.facility-grid,.results-kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.75rem;margin:1.2rem 0 2rem}.facility-grid section,.results-kpis section{border:1px solid var(--line);border-top:4px solid var(--gold);padding:1rem;background:#fff}.facility-grid strong,.results-kpis strong{display:block;font-size:1.7rem;color:var(--navy2);line-height:1.1}.facility-grid span,.results-kpis span{display:block;margin-top:.35rem;color:var(--muted);font-size:.9rem}
+.news-stack{border-top:1px solid var(--line);margin:1.2rem 0 2rem}.news-stack article{padding:1.15rem 0;border-bottom:1px solid var(--line)}.news-stack h3{font-size:1.35rem;margin:.45rem 0}.news-stack p{margin:.35rem 0}
+.support-layers{margin:1.2rem 0 2rem}.support-layers section{display:grid;grid-template-columns:44px 1fr;gap:1rem;border-top:1px solid var(--line);padding:1rem 0}.support-layers section>span{width:38px;height:38px;background:var(--navy2);color:#fff;display:grid;place-items:center;font-weight:900;border-radius:50%}.support-layers h3{margin:.05rem 0 .35rem}.support-layers p{margin:0}
+.policy-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border-top:1px solid var(--line);margin:1rem 0 2rem}.policy-grid span{padding:.65rem .4rem;border-bottom:1px solid var(--line);font-weight:700;color:var(--navy2)}
+@media(max-width:900px){.facility-grid,.results-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.policy-grid{grid-template-columns:1fr}}
+@media(max-width:620px){.facility-grid,.results-kpis{grid-template-columns:1fr}.contact-band{align-items:flex-start;flex-direction:column}}

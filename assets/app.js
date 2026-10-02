@@ -124,8 +124,7 @@
     if(!siteHeader) return;
     siteHeader.classList.toggle('is-compact', window.scrollY>18);
     const rect=siteHeader.getBoundingClientRect();
-    const visibleHeight=Math.max(0,Math.min(rect.height,rect.bottom));
-    document.documentElement.style.setProperty('--site-header-height', Math.ceil(visibleHeight)+'px');
+    document.documentElement.style.setProperty('--site-header-height', Math.ceil(rect.height)+'px');
   }
   if(siteHeader){
     updateHeader();
