@@ -34,7 +34,7 @@
 
   const headerSlot=document.getElementById('site-header-slot');
   if(headerSlot){
-    headerSlot.innerHTML=`<header class="site-header"><div class="head-main">
+    headerSlot.innerHTML=`<header class="site-header" id="site-header"><div class="head-main">
       <a class="brand" href="${site('')}"><img alt="Broadway Academy crest" src="${site('assets/badge.png')}"><span class="brand-copy"><strong>Broadway Academy</strong><span class="brand-motto">Our Children. Our Community. Believe it can be done.</span></span></a>
       <nav aria-label="Main navigation" class="mainnav">${groups.map(navGroup).join('')}
         <a class="plainnav parents-link" href="${site('about-2/parents/')}">Parents &amp; carers</a>
@@ -50,10 +50,28 @@
     </div>`;
   }
 
+  const termData=[
+    {name:'Autumn term 2026',start:'2026-09-01',end:'2026-12-18',startText:'1 September',endText:'18 December 2026',halfText:'26–30 October'},
+    {name:'Spring term 2027',start:'2027-01-04',end:'2027-03-25',startText:'4 January',endText:'25 March 2027',halfText:'15–19 February'},
+    {name:'Summer term 2027',start:'2027-04-12',end:'2027-07-21',startText:'12 April',endText:'21 July 2027',halfText:'31 May–4 June'},
+    {name:'Autumn term 2027',start:'2027-09-02',end:'2027-12-17',startText:'2 September',endText:'17 December 2027',halfText:'25–29 October'},
+    {name:'Spring term 2028',start:'2028-01-04',end:'2028-04-07',startText:'4 January',endText:'7 April 2028',halfText:'14–18 February'},
+    {name:'Summer term 2028',start:'2028-04-24',end:'2028-07-21',startText:'24 April',endText:'21 July 2028',halfText:'29 May–2 June'}
+  ];
+  const noon=d=>new Date(d+'T12:00:00');
+  function termStatus(){
+    const now=new Date(); now.setHours(12,0,0,0);
+    const current=termData.find(t=>now>=noon(t.start)&&now<=noon(t.end));
+    if(current) return {term:current,prefix:''};
+    const next=termData.find(t=>noon(t.start)>now);
+    return {term:next||termData[termData.length-1],prefix:next?'Next: ':''};
+  }
+  const ts=termStatus();
   const footerSlot=document.getElementById('site-footer-slot');
   if(footerSlot){
     footerSlot.innerHTML=`<footer class="site-footer">
-      <div class="footer-shortcuts"><div class="footer-wide"><strong>Useful links</strong><a href="${site('calendar/')}">Term dates</a><a href="${site('about-2/parents/')}">Parents &amp; carers</a><a href="${site('safeguarding-3/')}">Safeguarding</a><a href="${site('contact/')}">Contact</a></div></div>
+      <div class="footer-term"><div class="wrap footer-term-inner"><strong>${ts.prefix}${ts.term.name}</strong><span>${ts.term.startText}–${ts.term.endText}</span><span>Half-term ${ts.term.halfText}</span><a href="${site('calendar/')}">All term dates</a></div></div>
+      <div class="footer-shortcuts"><div class="footer-wide"><strong>Useful links</strong><a href="${site('calendar/')}">Term dates &amp; calendar</a><a href="${site('about-2/parents/')}">Parents &amp; carers</a><a href="${site('safeguarding-3/')}">Safeguarding</a><a href="${site('contact/')}">Contact</a></div></div>
       <div class="wrap footgrid"><div><h2>Broadway Academy</h2><p>The Broadway, Perry Barr,<br>Birmingham, B20 3DP</p><p><a href="tel:01215664334">0121 566 4334</a><br><a href="mailto:enquiry@broadway-academy.co.uk">enquiry@broadway-academy.co.uk</a></p></div>
       <div><h3>Families</h3><p><a href="${site('about-2/admissions/')}">Admissions</a><br><a href="${site('calendar/')}">Term dates &amp; calendar</a><br><a href="${site('about-2/parents/')}">Parents &amp; carers</a><br><a href="${site('about-2/attendance-3/')}">Attendance</a></p></div>
       <div><h3>Support</h3><p><a href="${site('safeguarding-3/')}">Safeguarding</a><br><a href="${site('curriculum/sen/')}">SEND</a><br><a href="${site('curriculum/pastoral/')}">Student support</a><br><a href="${site('curriculum/ceiag/')}">Careers</a></p></div>
@@ -90,6 +108,23 @@
         const a=document.createElement('a'); a.href=site(map[t][1]); a.textContent=map[t][0]; el.replaceWith(a);
       }
     });
+  }
+
+
+  const siteHeader=document.getElementById('site-header');
+  let headerTick=false;
+  function updateHeader(){
+    headerTick=false;
+    if(!siteHeader) return;
+    siteHeader.classList.toggle('is-compact', window.scrollY>56);
+    document.documentElement.style.setProperty('--site-header-height', Math.ceil(siteHeader.getBoundingClientRect().height)+'px');
+  }
+  if(siteHeader){
+    updateHeader();
+    window.addEventListener('scroll',()=>{if(!headerTick){headerTick=true;requestAnimationFrame(updateHeader)}},{passive:true});
+    window.addEventListener('resize',updateHeader,{passive:true});
+    window.addEventListener('load',updateHeader);
+    if('ResizeObserver' in window) new ResizeObserver(updateHeader).observe(siteHeader);
   }
 
   const panel=document.getElementById('mobile-panel');

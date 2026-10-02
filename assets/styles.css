@@ -49,8 +49,6 @@
 .hub-links a strong{display:block;color:var(--navy2);font-size:1.05rem}
 .hub-links a span{display:block;color:var(--muted);margin-top:.2rem}
 .hub-links a:hover,.hub-links a:focus-visible{background:var(--wash);outline:none}
-.term-source{margin:1rem 0 1.8rem}
-.term-source p{margin:.25rem 0 .85rem}
 .term-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;margin:1rem 0 2.2rem}
 .term-block{border-top:4px solid var(--navy);padding:1rem;background:var(--wash)}
 .term-block h3{margin:0 0 .8rem}
@@ -78,3 +76,58 @@
 .inline-links a:hover,.inline-links a:focus-visible,.section-link:hover,.section-link:focus-visible{color:var(--navy2);text-decoration-thickness:3px;outline:none}
 @media(max-width:1180px){.mainnav{display:none}.mobile-menu{display:inline-flex;margin-left:auto}}
 @media(max-width:720px){.tasks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));padding:.5rem 0}.quick-label{grid-column:1/-1;border:0;padding:.1rem 0 .25rem}.task{border-left:0;border-top:1px solid var(--line);padding:.55rem .15rem}.brand{min-width:auto}}
+
+/* v4: compact sticky shell, flatter content styling and live term information */
+:root{--radius:7px;--site-header-height:70px}
+.site-header{transition:box-shadow .18s ease,background-color .18s ease}
+.head-main{width:min(calc(100% - 2rem),var(--max));min-height:70px;gap:.45rem;margin:auto;transition:min-height .18s ease}
+.brand{min-width:182px;gap:.5rem;flex:0 0 auto}
+.brand img{width:42px;height:50px;transition:width .18s ease,height .18s ease}
+.brand-copy strong{font-size:.86rem;letter-spacing:.025em}
+.brand-motto{font-size:.5rem!important;letter-spacing:.005em;margin-top:.12rem;white-space:nowrap}
+.mainnav{margin-left:auto;gap:0;flex-wrap:nowrap;white-space:nowrap;min-width:0}
+.navbtn,.plainnav,.iconbtn{font-size:.79rem;padding:.56rem .38rem;border-radius:5px;white-space:nowrap}
+.iconbtn{padding:.5rem}
+.site-header.is-compact{box-shadow:0 5px 18px rgba(15,47,80,.11);background:rgba(255,255,255,.985)}
+.site-header.is-compact .head-main{min-height:45px}
+.site-header.is-compact .brand{min-width:auto}
+.site-header.is-compact .brand img{width:27px;height:32px}
+.site-header.is-compact .brand-copy{display:none}
+.site-header.is-compact .navbtn,.site-header.is-compact .plainnav,.site-header.is-compact .iconbtn{padding-top:.28rem;padding-bottom:.28rem;font-size:.77rem}
+.mega{top:calc(100% + .25rem)}
+.side{top:calc(var(--site-header-height,70px) + 20px)}
+
+/* Decorative information should read as content rather than as a stack of boxes. */
+.panel,.panel.gold,.panel.alert{background:transparent;border:0;border-top:2px solid var(--gold);border-radius:0;padding:1rem 0}
+.panel.alert{border-top-color:#b84027}
+.sidebox{background:transparent;border:0;border-top:3px solid var(--gold);border-radius:0;padding:.9rem 0 0}
+.sidebox a{padding:.52rem 0}
+.sidebox a:hover{background:transparent;text-decoration:underline}
+.card{border-radius:7px;box-shadow:none}
+.feature{border-radius:8px}
+.subject-hero{border-radius:0;background:transparent;border:0;border-top:3px solid var(--gold);padding:1rem 0}
+.archive{border-radius:6px}.btn{border-radius:6px}.directory a,.doc{border-radius:5px}.tag{border-radius:3px}
+
+/* Simple values treatment: no pills and no repeated motto. */
+.values-clean{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 2rem;margin:1.4rem 0 2rem;border-top:1px solid var(--line)}
+.values-clean div{padding:.78rem 0;border-bottom:1px solid var(--line);color:var(--navy2);font-weight:800;font-size:1.04rem}
+.values-clean div::before{content:"";display:inline-block;width:18px;height:3px;background:var(--gold);vertical-align:middle;margin-right:.65rem}
+
+/* Current term is always visible in the global footer. */
+.site-footer{padding:0 0 1.3rem}
+.footer-term{background:#09243d;border-bottom:1px solid rgba(255,255,255,.14)}
+.footer-term-inner{min-height:52px;display:flex;align-items:center;gap:1rem 1.4rem;flex-wrap:wrap;padding:.65rem 0;font-size:.88rem}
+.footer-term-inner strong{color:#f0d17b}.footer-term-inner span{color:#fff}.footer-term-inner a{margin-left:auto;font-weight:800;color:#fff}
+.footer-shortcuts{margin:0 0 2.2rem;padding:1rem 0;border-bottom:1px solid rgba(255,255,255,.15)}
+
+/* Dining page */
+.dining-lead{font-size:1.22rem;max-width:72ch;color:#3a4a58}
+.dining-three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.8rem;margin:2rem 0 2.6rem}
+.dining-three section{border-top:3px solid var(--gold);padding-top:1rem}.dining-three h2{font-size:1.45rem;margin:0 0 .55rem}
+.dining-highlight{margin:2.2rem 0;padding:1.5rem 0;border-top:3px solid var(--navy);border-bottom:1px solid var(--line)}.dining-highlight h2{margin:.15rem 0 .6rem}
+.dining-photo-grid{display:grid;grid-template-columns:1.35fr .65fr;gap:1rem;margin:1.7rem 0 2.5rem}.dining-photo-grid figure{margin:0;min-width:0}.dining-photo-grid img{display:block;width:100%;height:100%;max-height:440px;object-fit:cover;border-radius:6px}.dining-photo-grid figcaption{font-size:.8rem;color:var(--muted);margin-top:.45rem}
+.dining-services{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.7rem;margin:1.4rem 0 2.5rem}.dining-services section{border-top:1px solid var(--line);padding-top:.9rem}.dining-services h3{margin:.1rem 0 .45rem}
+.dining-daily{columns:2;column-gap:3rem;padding-left:1.2rem}
+
+@media(max-width:1180px){.mainnav{display:none}.mobile-menu{display:inline-flex;margin-left:auto}.site-header.is-compact .head-main{min-height:44px}}
+@media(max-width:760px){.head-main{min-height:62px}.brand img{width:36px;height:43px}.brand-copy strong{font-size:.82rem}.brand-motto{display:none!important}.site-header.is-compact .head-main{min-height:42px}.site-header.is-compact .brand img{width:24px;height:29px}.footer-term-inner{display:grid;grid-template-columns:1fr auto;gap:.18rem 1rem;line-height:1.35}.footer-term-inner strong{grid-column:1/-1}.footer-term-inner a{margin-left:0;grid-column:1/-1;margin-top:.25rem}.values-clean,.dining-three,.dining-services,.dining-photo-grid{grid-template-columns:1fr}.dining-daily{columns:1}}

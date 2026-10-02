@@ -1,18 +1,20 @@
-# Build validation — revision 3
+# Build validation — v4
 
-Validation run after the shared-shell, navigation, term-date and SEND integration pass.
+- HTML files: **83**
+- References inspected: **1242**
+- Missing local targets: **0**
+- Pages without an H1: **0**
+- Pages with multiple H1s: **0**
+- Images missing alt attributes: **0**
+- Pages with duplicate IDs: **0**
+- `assets/app.js`: syntax checked separately with Node.
+- `assets/pages.js`: syntax checked separately with Node.
 
-- 83 HTML files checked.
-- 1,117 static local/external references inspected by the structural validator.
-- 0 missing local targets detected.
-- All 83 HTML pages use the shared header mount and shared footer mount.
-- No page retains a duplicated hard-coded site header/footer.
-- Search data is centralised in `assets/pages.js`; no page embeds its own full page index.
-- `assets/app.js` passes `node --check` syntax validation.
-- `assets/pages.js` passes `node --check` syntax validation.
-- The 1470px desktop header was rendered and checked: full motto stays on one line and all desktop navigation remains visible.
-- Term-date, curriculum breadcrumb, SEND report and SEND Easy Read pages were rendered during the revision pass.
-- Public-facing redesign commentary phrases were checked and removed.
-- Old oval/pill values presentation has been removed.
+This is a structural validation of the static build. External URLs are intentionally not treated as local build targets.
 
-The build remains fully static and GitHub Pages compatible.
+
+## v5 validation
+- Checked 1,111 internal `href`/`src` references: 0 missing.
+- `assets/app.js` and `assets/pages.js` pass Node syntax checks.
+- Confirmed the public Term Dates page contains no Birmingham term-date source link or source wording.
+- Confirmed SEND and Values pages do not repeat the Academy motto in the report/page content.

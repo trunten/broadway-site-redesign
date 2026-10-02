@@ -48,4 +48,4 @@ git push
 
 The prototype covers stable pages identified through normal site navigation. Dynamic collections such as individual news posts, individual calendar events and downloadable policy/document files are represented by landing pages and links to their current live sources rather than copied wholesale into the static preview.
 
-See `REDESIGN_PLAN.md`, `CONTENT_MAP.csv`, `REVISION_NOTES_V3.md` and `BUILD_VALIDATION.md` for supporting detail.
+See `REDESIGN_PLAN.md`, `CONTENT_MAP.csv`, `REVISION_NOTES_V5.md` and `BUILD_VALIDATION.md` for supporting detail.
