@@ -50,28 +50,34 @@
     </div>`;
   }
 
-  const termData=[
-    {name:'Autumn term 2026',start:'2026-09-01',end:'2026-12-18',startText:'1 September',endText:'18 December 2026',halfText:'26–30 October'},
-    {name:'Spring term 2027',start:'2027-01-04',end:'2027-03-25',startText:'4 January',endText:'25 March 2027',halfText:'15–19 February'},
-    {name:'Summer term 2027',start:'2027-04-12',end:'2027-07-21',startText:'12 April',endText:'21 July 2027',halfText:'31 May–4 June'},
-    {name:'Autumn term 2027',start:'2027-09-02',end:'2027-12-17',startText:'2 September',endText:'17 December 2027',halfText:'25–29 October'},
-    {name:'Spring term 2028',start:'2028-01-04',end:'2028-04-07',startText:'4 January',endText:'7 April 2028',halfText:'14–18 February'},
-    {name:'Summer term 2028',start:'2028-04-24',end:'2028-07-21',startText:'24 April',endText:'21 July 2028',halfText:'29 May–2 June'}
+  const academicYears=[
+    {label:'2026–27',start:'2026-09-01',end:'2027-08-31',terms:[
+      {name:'Autumn',startText:'1 September',endText:'18 December 2026',halfText:'26–30 October'},
+      {name:'Spring',startText:'4 January',endText:'25 March 2027',halfText:'15–19 February'},
+      {name:'Summer',startText:'12 April',endText:'21 July 2027',halfText:'31 May–4 June'}
+    ]},
+    {label:'2027–28',start:'2027-09-01',end:'2028-08-31',terms:[
+      {name:'Autumn',startText:'2 September',endText:'17 December 2027',halfText:'25–29 October'},
+      {name:'Spring',startText:'4 January',endText:'7 April 2028',halfText:'14–18 February'},
+      {name:'Summer',startText:'24 April',endText:'21 July 2028',halfText:'29 May–2 June'}
+    ]}
   ];
   const noon=d=>new Date(d+'T12:00:00');
-  function termStatus(){
+  function academicYearStatus(){
     const now=new Date(); now.setHours(12,0,0,0);
-    const current=termData.find(t=>now>=noon(t.start)&&now<=noon(t.end));
-    if(current) return {term:current,prefix:''};
-    const next=termData.find(t=>noon(t.start)>now);
-    return {term:next||termData[termData.length-1],prefix:next?'Next: ':''};
+    const current=academicYears.find(y=>now>=noon(y.start)&&now<=noon(y.end));
+    if(current) return current;
+    const next=academicYears.find(y=>noon(y.start)>now);
+    return next||academicYears[academicYears.length-1];
   }
-  const ts=termStatus();
+  const academicYear=academicYearStatus();
   const footerSlot=document.getElementById('site-footer-slot');
   if(footerSlot){
     footerSlot.innerHTML=`<footer class="site-footer">
-      <div class="footer-term"><div class="wrap footer-term-inner"><strong>${ts.prefix}${ts.term.name}</strong><span>${ts.term.startText}–${ts.term.endText}</span><span>Half-term ${ts.term.halfText}</span><a href="${site('calendar/')}">All term dates</a></div></div>
-      <div class="footer-shortcuts"><div class="footer-wide"><strong>Useful links</strong><a href="${site('calendar/')}">Term dates &amp; calendar</a><a href="${site('about-2/parents/')}">Parents &amp; carers</a><a href="${site('safeguarding-3/')}">Safeguarding</a><a href="${site('contact/')}">Contact</a></div></div>
+      <div class="footer-term"><div class="wrap footer-term-inner">
+        <div class="footer-term-heading"><strong>Term dates ${academicYear.label}</strong></div>
+        <div class="footer-term-grid">${academicYear.terms.map(t=>`<div class="footer-term-item"><strong>${t.name}</strong><span>${t.startText}–${t.endText}</span><small>Half-term ${t.halfText}</small></div>`).join('')}</div>
+      </div></div>
       <div class="wrap footgrid"><div><h2>Broadway Academy</h2><p>The Broadway, Perry Barr,<br>Birmingham, B20 3DP</p><p><a href="tel:01215664334">0121 566 4334</a><br><a href="mailto:enquiry@broadway-academy.co.uk">enquiry@broadway-academy.co.uk</a></p></div>
       <div><h3>Families</h3><p><a href="${site('about-2/admissions/')}">Admissions</a><br><a href="${site('calendar/')}">Term dates &amp; calendar</a><br><a href="${site('about-2/parents/')}">Parents &amp; carers</a><br><a href="${site('about-2/attendance-3/')}">Attendance</a></p></div>
       <div><h3>Support</h3><p><a href="${site('safeguarding-3/')}">Safeguarding</a><br><a href="${site('curriculum/sen/')}">SEND</a><br><a href="${site('curriculum/pastoral/')}">Student support</a><br><a href="${site('curriculum/ceiag/')}">Careers</a></p></div>
@@ -116,8 +122,10 @@
   function updateHeader(){
     headerTick=false;
     if(!siteHeader) return;
-    siteHeader.classList.toggle('is-compact', window.scrollY>56);
-    document.documentElement.style.setProperty('--site-header-height', Math.ceil(siteHeader.getBoundingClientRect().height)+'px');
+    siteHeader.classList.toggle('is-compact', window.scrollY>18);
+    const rect=siteHeader.getBoundingClientRect();
+    const visibleHeight=Math.max(0,Math.min(rect.height,rect.bottom));
+    document.documentElement.style.setProperty('--site-header-height', Math.ceil(visibleHeight)+'px');
   }
   if(siteHeader){
     updateHeader();
